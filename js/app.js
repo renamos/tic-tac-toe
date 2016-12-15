@@ -1,9 +1,9 @@
 $(function () {
     //Declarations
-    var xIconBig = '<i class="fa fa-times fa-5x" aria-hidden="true"></i>';
+    var xIconBig = '<i id="boardIcon" class="fa fa-times" aria-hidden="true"></i>';
     var xIconSmall = '<i class="fa fa-times" aria-hidden="true"></i>';
 
-    var oIconBig = '<i class="fa fa-circle-o fa-5x" aria-hidden="true"></i>';
+    var oIconBig = '<i id="boardIcon" class="fa fa-circle-o" aria-hidden="true"></i>';
     var oIconSmall = '<i class="fa fa-circle-o" aria-hidden="true"></i>';
 
     var count = 0;
@@ -12,20 +12,18 @@ $(function () {
     };
 
     getRandom();
-
-    console.log(count)
+    swal.enableButtons();
 
     var clickedCellX = [];
     var clickedCellO = [];
 
     var winningCombos = ['123', '456', '789', '147', '258', '369', '159', '357'];
 
-
     var showTurn = function () {
         if (count == 0 || count % 2 == 0) {
-            $('#turn').html(xIconSmall + ' - it\'s your turn!')
+            $('#turn').html(xIconSmall + ' - YOUR TURN!')
         } else {
-            $('#turn').html(oIconSmall + ' - it\'s your turn!')
+            $('#turn').html(oIconSmall + ' - YOUR TURN!')
         }
     };
 
@@ -72,21 +70,34 @@ $(function () {
     }
 
     var checkWinner = function () {
-        if ($("#board td.clicked").length == $("#board td").length) {
+        if (winner(clickedCellO, winningCombos)) {
             swal({
-                title: "Nobody wins!",
-                text: "Start a new game!",
-                type: "error",
-                confirmButtonText: "New Game"
-            });
-            newGame();
-        } else if (winner(clickedCellO, winningCombos)) {
-            alert('O wins!')
+                    title: "O Wins!",
+                    text: "Way to go!",
+                    type: "success",
+                    confirmButtonText: "New Game",
+                    allowEscapeKey: true
+                },
+                newGame());
         } else if (winner(clickedCellX, winningCombos)) {
-            alert('x wins!')
+            swal({
+                    title: "X Wins!",
+                    text: "Way to go!",
+                    type: "success",
+                    confirmButtonText: "New Game",
+                    allowEscapeKey: true,
+                },
+                newGame());
 
+        } else if ($("#board td.clicked").length == $("#board td").length) {
+            swal({
+                    title: "Nobody wins!",
+                    text: "Start a new game!",
+                    type: "error",
+                    confirmButtonText: "New Game"
+                },
+                newGame())
         }
-
     };
 
     //End Declarations
@@ -116,10 +127,7 @@ $(function () {
             }
             $(this).addClass('clicked');
             count++;
-            console.log(count)
-            console.log(clickedCellO)
-            console.log(clickedCellX)
-            setTimeout(checkWinner(), 2000);
+            checkWinner();
             showTurn();
         }
     });
