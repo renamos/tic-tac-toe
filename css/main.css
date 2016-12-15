@@ -20,11 +20,16 @@ button {
     margin-bottom: 40px;
     font-family: 'Roboto', sans-serif;
     font-size: 1em;
-    padding: 5px;
+    padding: 8px;
     color: white;
     border: 1px solid white;
     background: none;
     border-radius: 4px;
+}
+
+button:hover {
+    background-color: #74B3DE;
+    cursor: pointer;
 }
 
 table {

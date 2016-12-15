@@ -105,6 +105,10 @@ $(function () {
     //Game inialized
     showTurn();
 
+    $('button').on("click", function () {
+        newGame();
+    })
+
     $("td").on("click", function (event) {
         var clickedCell = parseInt(event.target.id, 10);
 
