@@ -105,7 +105,7 @@ $(function () {
     //Game inialized
     showTurn();
 
-    $('button').on("click", function () {
+    $('.newGameButton').on("click", function () {
         newGame();
     })
 
@@ -120,14 +120,16 @@ $(function () {
                 confirmButtonText: "Okay!",
                 allowEscapeKey: true
             });
-        } else {
+        } else  {
 
             if (count == 0 || count % 2 == 0) {
                 $(this).append(xIconBig);
                 clickedCellX.push(clickedCell);
+                console.log('X = ' + clickedCellX);
             } else {
                 $(this).append(oIconBig);
                 clickedCellO.push(clickedCell);
+                console.log('O = ' + clickedCellO)
             }
             $(this).addClass('clicked');
             count++;
